@@ -39,6 +39,15 @@ define(function (require) {
         );
       };
 
+      function executeRequest(body) {
+        esPromise = es[strategy.clientMethod]({
+          timeout: esShardTimeout,
+          ignore_unavailable: true,
+          preference: sessionId,
+          body: body
+        });
+        return esPromise;
+      }
 
       // handle a request being aborted while being fetched
       var requestWasAborted = Promise.method(function (req, i) {
@@ -88,12 +97,9 @@ define(function (require) {
           throw ABORTED;
         }
 
-        return (esPromise = es[strategy.clientMethod]({
-          timeout: esShardTimeout,
-          ignore_unavailable: true,
-          preference: sessionId,
-          body: body
-        }));
+        return strategy.execute
+          ? strategy.execute(body, executeRequest)
+          : executeRequest(body);
       })
       .then(function (clientResp) {
         return strategy.getResponses(clientResp);

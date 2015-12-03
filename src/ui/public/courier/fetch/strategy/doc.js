@@ -3,6 +3,10 @@ define(function (require) {
     return {
       clientMethod: 'mget',
 
+      execute: function (body, fn) {
+        return fn.call(fn, body);
+      },
+
       /**
        * Flatten a series of requests into as ES request body
        * @param  {array} requests - an array of flattened requests
