@@ -11,7 +11,7 @@ define(function () {
      */
     return function (selection) {
       selection.each(function (data) {
-        var div = d3.select(this);
+        let div = d3.select(this);
 
         if (!data.series) {
           div.selectAll('.chart-title')

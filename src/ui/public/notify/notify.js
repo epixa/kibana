@@ -4,8 +4,8 @@ import modules from 'ui/modules';
 import errors from 'ui/notify/errors';
 import Notifier from 'ui/notify/notifier';
 import 'ui/notify/directives';
-var module = modules.get('kibana/notify');
-var rootNotifier = new Notifier();
+let module = modules.get('kibana/notify');
+let rootNotifier = new Notifier();
 
 module.factory('createNotifier', function () {
   return function (opts) {
@@ -18,7 +18,7 @@ module.factory('Notifier', function () {
 });
 
 module.run(function ($interval, $rootScope, config) {
-  var configInitListener = $rootScope.$on('init:config', function () {
+  let configInitListener = $rootScope.$on('init:config', function () {
     applyConfig();
     configInitListener();
   });

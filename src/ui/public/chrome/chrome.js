@@ -11,8 +11,8 @@ import 'ui/private';
 import 'ui/promises';
 import 'ui/directives/kbn_src';
 
-var chrome = {};
-var internals = _.defaults(
+let chrome = {};
+let internals = _.defaults(
   _.cloneDeep(metadata),
   {
     basePath: '',
