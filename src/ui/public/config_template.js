@@ -1,15 +1,15 @@
 import _ from 'lodash';
 
 function ConfigTemplate(templates) {
-  var template = this;
+  let template = this;
   template.current = null;
   template.toggle = _.partial(update, null);
   template.open = _.partial(update, true);
   template.close = _.partial(update, false);
 
   function update(newState, name) {
-    var toUpdate = templates[name];
-    var curState = template.is(name);
+    let toUpdate = templates[name];
+    let curState = template.is(name);
     if (newState == null) newState = !curState;
 
     if (newState) {

@@ -4,7 +4,7 @@ import ConfigTemplate from 'ui/config_template';
 import angular from 'angular';
 import 'ui/directives/input_focus';
 import uiModules from 'ui/modules';
-var module = uiModules.get('kibana');
+let module = uiModules.get('kibana');
 
 
 /**
@@ -26,13 +26,13 @@ module.directive('config', function ($compile) {
       configObject: '='
     },
     link: function ($scope, element, attr) {
-      var tmpScope = $scope.$new();
+      let tmpScope = $scope.$new();
 
       $scope.$watch('configObject', function (newVal) {
         $scope[attr.configObject] = $scope.configObject;
       });
 
-      var wrapTmpl = function (tmpl) {
+      let wrapTmpl = function (tmpl) {
         if ($scope.configSubmit) {
           return '<form role="form" class="container-fluid" ng-submit="configSubmit()">' + tmpl + '</form>';
         } else {
@@ -44,7 +44,7 @@ module.directive('config', function ($compile) {
         'configSubmit',
         'configTemplate.current || configTemplate'
       ], function () {
-        var tmpl = $scope.configTemplate;
+        let tmpl = $scope.configTemplate;
         if (tmpl instanceof ConfigTemplate) {
           tmpl = tmpl.toString();
         }
@@ -52,7 +52,7 @@ module.directive('config', function ($compile) {
         tmpScope.$destroy();
         tmpScope = $scope.$new();
 
-        var html = '';
+        let html = '';
         if (tmpl) {
           html = $compile('' +
             '<div class="config" ng-show="configTemplate">' +

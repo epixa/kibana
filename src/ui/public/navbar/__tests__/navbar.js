@@ -109,13 +109,13 @@ describe('navbar directive', function () {
     }
 
     it('should use the default markup', function () {
-      var $el = init();
+      let $el = init();
       expect($el.find('.button-group button').length).to.equal(3);
     });
 
     it('should append to end then order == 0', function () {
       registerExtension({ order: 0 });
-      var $el = init();
+      let $el = init();
 
       expect($el.find('.button-group button').length).to.equal(4);
       expect($el.find('.button-group button').last().hasClass('test-button')).to.be.ok();
@@ -123,7 +123,7 @@ describe('navbar directive', function () {
 
     it('should append to end then order > 0', function () {
       registerExtension({ order: 1 });
-      var $el = init();
+      let $el = init();
 
       expect($el.find('.button-group button').length).to.equal(4);
       expect($el.find('.button-group button').last().hasClass('test-button')).to.be.ok();
@@ -131,7 +131,7 @@ describe('navbar directive', function () {
 
     it('should append to end then order < 0', function () {
       registerExtension({ order: -1 });
-      var $el = init();
+      let $el = init();
 
       expect($el.find('.button-group button').length).to.equal(4);
       expect($el.find('.button-group button').first().hasClass('test-button')).to.be.ok();
