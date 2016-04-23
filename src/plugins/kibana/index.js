@@ -1,5 +1,6 @@
 import ingest from './server/routes/api/ingest';
 import search from './server/routes/api/search';
+import exporter from './server/routes/api/export';
 
 module.exports = function (kibana) {
   return new kibana.Plugin({
@@ -78,6 +79,7 @@ module.exports = function (kibana) {
     init: function (server, options) {
       ingest(server);
       search(server);
+      exporter(server);
     }
   });
 
