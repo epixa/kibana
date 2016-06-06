@@ -1,4 +1,4 @@
-# Kibana 4.6.0-snapshot
+# Kibana 4.6.0
 
 [![Build Status](https://travis-ci.org/elastic/kibana.svg?branch=master)](https://travis-ci.org/elastic/kibana?branch=master)
 
@@ -45,7 +45,7 @@ For the daring, snapshot builds are available. These builds are created after ea
 
 | platform |  |  |  |  |
 | --- | --- | --- | --- | --- |
-| OSX | [tar](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-snapshot-darwin-x64.tar.gz) | [zip](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-snapshot-darwin-x64.zip) |  |  |
-| Linux x64 | [tar](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-snapshot-linux-x64.tar.gz) | [zip](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-snapshot-linux-x64.zip) | [deb](https://download.elastic.co/kibana/kibana-snapshot/kibana_4.6.0-snapshot_amd64.deb)| [rpm](https://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0_snapshot-1.x86_64.rpm) |
-| Linux x86 | [tar](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-snapshot-linux-x86.tar.gz) | [zip](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-snapshot-linux-x86.zip) | [deb](https://download.elastic.co/kibana/kibana-snapshot/kibana_4.6.0-snapshot_i386.deb) | [rpm](https://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0_snapshot-1.i386.rpm) |
-| Windows | [tar](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-snapshot-windows.tar.gz) | [zip](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-snapshot-windows.zip) |  |  |
+| OSX | [tar](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-darwin-x64.tar.gz) | [zip](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-darwin-x64.zip) |  |  |
+| Linux x64 | [tar](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-linux-x64.tar.gz) | [zip](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-linux-x64.zip) | [deb](https://download.elastic.co/kibana/kibana-snapshot/kibana_4.6.0_amd64.deb)| [rpm](https://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-1.x86_64.rpm) |
+| Linux x86 | [tar](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-linux-x86.tar.gz) | [zip](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-linux-x86.zip) | [deb](https://download.elastic.co/kibana/kibana-snapshot/kibana_4.6.0_i386.deb) | [rpm](https://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-1.i386.rpm) |
+| Windows | [tar](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-windows.tar.gz) | [zip](http://download.elastic.co/kibana/kibana-snapshot/kibana-4.6.0-windows.zip) |  |  |
