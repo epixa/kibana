@@ -1,14 +1,32 @@
 [[kibana-guide]]
 = Kibana User Guide
 
+:version:        6.0.0-alpha1
+:major-version:  6.x
+
+//////////
+release-state can be: released | prerelease | unreleased
+//////////
+
+:release-state:  prerelease
+:branch:         master
+:issue:          https://github.com/elastic/kibana/issues/
+:pull:           https://github.com/elastic/kibana/pull/
+
+:es-ref:         https://www.elastic.co/guide/en/elasticsearch/reference/master/
+:xpack-guide:    https://www.elastic.co/guide/en/x-pack/master/
+
+////////
+legacy, will remove
+////////
 :ref: http://www.elastic.co/guide/en/elasticsearch/reference/master/
 :xpack-ref: https://www.elastic.co/guide/en/x-pack/5.0/
 :scyld: X-Pack Security
 :k4issue: https://github.com/elastic/kibana/issues/
 :k4pull: https://github.com/elastic/kibana/pull/
-:version: 5.0.0
 :esversion: 5.0.0
 :packageversion: 5.0
+
 
 include::introduction.asciidoc[]
 
