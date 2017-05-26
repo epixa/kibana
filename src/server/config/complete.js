@@ -11,7 +11,17 @@ export default function (kbnServer, server, config) {
     return kbnServer.config;
   });
 
-  for (const key of getUnusedSettings(kbnServer.settings, config.get())) {
-    server.log(['warning', 'config'], `Settings for "${key}" were not applied, check for spelling errors and ensure the plugin is loaded.`);
+  const unusedSettings = getUnusedSettings(kbnServer.settings, config.get());
+
+  for (const key of unusedSettings) {
+    server.log(['error', 'config'], `"${key}" is not a recongized configuration option, so it must be removed from kibana.yml and cannot be used as a CLI argument`); // eslint-disable-line max-len
+  }
+
+  if (unusedSettings.length) {
+    if (config.get('env.dev')) {
+      server.log(['info', 'config'], 'Server continuing to run due to dev mode, but Kibana will fail to start with unrecognized configurations in production'); // eslint-disable-line max-len
+    } else {
+      process.exit(64); // eslint-disable-line no-process-exit
+    }
   }
 }
