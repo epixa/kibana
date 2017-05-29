@@ -3,7 +3,7 @@ import expect from 'expect.js';
 import * as kbnTestServer from '../../test_utils/kbn_server';
 const basePath = '/kibana';
 
-describe('Server basePath config', function () {
+describe.only('Server basePath config', function () {
   this.slow(10000);
   this.timeout(60000);
 

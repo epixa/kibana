@@ -3,8 +3,19 @@ import expect from 'expect.js';
 import { noop } from 'lodash';
 import sinon from 'sinon';
 
+function stubExitAndInvoke(fn) {
+  const origExit = process.exit;
+  const stubExit = sinon.stub();
+
+  process.exit = stubExit;
+  fn();
+  process.exit = origExit;
+
+  return stubExit;
+}
+
 describe('server config complete', function () {
-  it(`should call server.log when there's an unused setting`, function () {
+  it(`exits with status 64 and logs when not in dev and there's an unused setting`, function () {
     const kbnServer = {
       settings: {
         unused: true
@@ -17,17 +28,58 @@ describe('server config complete', function () {
     };
 
     const config = {
-      get: sinon.stub().returns({
-        used: true
-      })
+      get: arg => {
+        if (arg === 'env.dev') {
+          return false;
+        }
+        if (!arg) {
+          return {
+            used: true
+          };
+        }
+        throw new Error('test: unexpected argument to mock config.get()');
+      }
     };
 
-    complete(kbnServer, server, config);
+    const exit = stubExitAndInvoke(() => complete(kbnServer, server, config));
 
+    expect(exit.calledWith(64)).to.be(true);
     expect(server.log.calledOnce).to.be(true);
   });
 
-  it(`shouldn't call server.log when there isn't an unused setting`, function () {
+  it(`just logs when in dev and there's an unused setting`, function () {
+    const kbnServer = {
+      settings: {
+        unused: true
+      }
+    };
+
+    const server = {
+      decorate: noop,
+      log: sinon.spy()
+    };
+
+    const config = {
+      get: arg => {
+        if (arg === 'env.dev') {
+          return true;
+        }
+        if (!arg) {
+          return {
+            used: true
+          };
+        }
+        throw new Error('test: unexpected argument to mock config.get()');
+      }
+    };
+
+    const exit = stubExitAndInvoke(() => complete(kbnServer, server, config));
+
+    expect(exit.called).to.be(false);
+    expect(server.log.called).to.be(true);
+  });
+
+  it(`does not log or exit when there isn't an unused setting`, function () {
     const kbnServer = {
       settings: {
         used: true
@@ -45,8 +97,9 @@ describe('server config complete', function () {
       })
     };
 
-    complete(kbnServer, server, config);
+    const exit = stubExitAndInvoke(() => complete(kbnServer, server, config));
 
+    expect(exit.called).to.be(false);
     expect(server.log.called).to.be(false);
   });
 
@@ -68,6 +121,8 @@ describe('server config complete', function () {
         foo: 'bar'
       })
     };
+
+    stubExitAndInvoke(() => complete(kbnServer, server, config));
 
     complete(kbnServer, server, config);
     expect(server.log.called).to.be(false);
@@ -99,7 +154,8 @@ describe('server config complete', function () {
       })
     };
 
-    complete(kbnServer, server, config);
+    stubExitAndInvoke(() => complete(kbnServer, server, config));
+
     expect(server.log.called).to.be(false);
   });
 });
