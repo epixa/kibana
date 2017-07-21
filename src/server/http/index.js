@@ -75,7 +75,10 @@ export default async function (kbnServer, server, config) {
   server.ext('onPreResponse', function (req, reply) {
     const response = req.response;
 
+    const nonce = '1234';
+
     const customHeaders = {
+      'content-security-policy': `script-src 'self' 'unsafe-eval' 'nonce-${nonce}'`,
       ...config.get('server.customResponseHeaders'),
       'kbn-name': kbnServer.name,
       'kbn-version': kbnServer.version,

@@ -110,7 +110,7 @@ block content
     .kibanaWelcomeText
       | #{i18n('UI-WELCOME_MESSAGE')}
 
-  script.
+  script(nonce='1234').
     window.onload = function () {
       var buildNum = #{kibanaPayload.buildNum};
       var cacheParam = buildNum ? '?v=' + buildNum : '';
@@ -152,6 +152,7 @@ block content
 
         if (type === 'script') {
           dom.setAttribute('src', file);
+          dom.setAttribute('nonce', '1234');
           dom.addEventListener('load', next);
           document.head.appendChild(dom);
         } else {
