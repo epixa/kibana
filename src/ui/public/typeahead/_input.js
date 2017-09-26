@@ -1,20 +1,11 @@
-import 'ui/notify/directives';
 import { uiModules } from 'ui/modules';
 const typeahead = uiModules.get('kibana/typeahead');
 
-
 typeahead.directive('kbnTypeaheadInput', function () {
-
   return {
     restrict: 'A',
-    require: ['^ngModel', '^kbnTypeahead'],
-
-    link: function ($scope, $el, $attr, deps) {
-      const model = deps[0];
-      const typeaheadCtrl = deps[1];
-
-      typeaheadCtrl.setInputModel(model);
-
+    require: '^kbnTypeahead',
+    link: function ($scope, $el, $attr, typeahead) {
       // disable browser autocomplete
       $el.attr('autocomplete', 'off');
 
@@ -32,8 +23,7 @@ typeahead.directive('kbnTypeaheadInput', function () {
         $scope.$evalAsync(() => typeaheadCtrl.setFocused(false));
       });
 
-      // unbind event listeners
-      $scope.$on('$destroy', function () {
+      $scope.$on('$destroy', () => {
         $el.off();
       });
     }
