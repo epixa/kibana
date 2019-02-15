@@ -29,3 +29,7 @@ export { Field } from '../../../core_plugins/kibana/public/management/sections/s
 export { management } from './sections_register';
 export { SidebarNav } from './components';
 export { MANAGEMENT_BREADCRUMB } from './breadcrumbs';
+
+export function __initNewPlatformContract__(startContract) {
+
+}

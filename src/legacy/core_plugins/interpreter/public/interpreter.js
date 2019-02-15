@@ -19,33 +19,108 @@
 
 import { register } from '@kbn/interpreter/common';
 import { initializeInterpreter, registries } from '@kbn/interpreter/public';
-import { kfetch } from 'ui/kfetch';
 import { functions } from './functions';
 import { visualization } from './renderers/visualization';
 
-register(registries, {
-  browserFunctions: functions,
-  renderers: [visualization],
-});
 
-let _resolve;
-let _interpreterPromise;
 
-const initialize = async () => {
-  initializeInterpreter(kfetch, registries.types, registries.browserFunctions).then(interpreter => {
-    _resolve({ interpreter });
-  });
-};
+// $KR/plugins/yak/public/index.js
+import { getType } from '../../interpreter/public';
 
-export const getInterpreter = async () => {
-  if (!_interpreterPromise) {
-    _interpreterPromise = new Promise(resolve => _resolve = resolve);
-    initialize();
+
+
+// public/index.js
+export function getType() {
+  // ...
+}
+
+const startCore = createStartCore();
+const startContract = new Plugin().start(startCore);
+exposeToPlugin(startContract);
+
+
+// public/shim.js
+import { kfetch } from 'ui/kfetch';
+import { EmbeddableFactoriesRegistryProvider } from 'ui/embeddable/embeddable_factories_registry';
+import { core } from 'ui/core';
+import { registerServerFunctions } from '../server/routes/server_functions';
+
+export function createStartCore(core) {
+  return {
+    ...core,
+    http: {
+      fetch: kfetch
+    }
   }
-  return await _interpreterPromise;
-};
+}
 
-export const interpretAst = async (...params) => {
-  const { interpreter } = await getInterpreter();
-  return await interpreter.interpretAst(...params);
+export function exposeToPlugin(startContract) {
+  EmbeddableFactoriesRegistryProvider.__initNewPlatformContract__(startContract.embeddableFActory);
+}
+
+/*
+{
+  registerSection() {
+
+  }
 };
+*/
+
+
+// public/plugin.js
+export class CanvasPlugin {
+  constructor(initializerContext) {
+    this.interpreter;
+  }
+
+  start(core) {
+    core.applications.registerApplication(async (dom) => {
+      const { renderApp } = await core.loader.load('canvas-app.bundle.js');
+      renderApp(dom);
+    });
+
+    return {
+
+    };
+
+
+    this.EmbeddableFactoriesRegistryProvider = uiRegistry({
+      index: ['name'],
+      name: 'embeddableFactories',
+    });
+
+    this.intrepreter.register(registries, {
+      browserFunctions: functions,
+      renderers: [visualization],
+    });
+
+    let _resolve;
+    let _interpreterPromise;
+
+    const initialize = async () => {
+      this.interpreter.initializeInterpreter(core.http.fetch).then(interpreter => {
+        _resolve({ interpreter });
+      });
+    };
+
+    return {
+      embeddableFActory: this.EmbeddableFactoriesRegistryProvider,
+      async getInterpreter() {
+        if (!_interpreterPromise) {
+          _interpreterPromise = new Promise(resolve => _resolve = resolve);
+          initialize();
+        }
+        return await _interpreterPromise;
+      },
+
+      async interpretAst(...params) {
+        const { interpreter } = await getInterpreter();
+        return await interpreter.interpretAst(...params);
+      }
+    };
+  }
+
+  stop(core) {
+    // called when plugin is torn down, aka window.onbeforeunload
+  }
+}

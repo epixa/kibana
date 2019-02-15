@@ -23,7 +23,9 @@ import { uiRegistry } from '../registry/_registry';
 /**
  * Registry of functions (EmbeddableFactoryProviders) which return an EmbeddableFactory.
  */
-export const EmbeddableFactoriesRegistryProvider = uiRegistry({
-  index: ['name'],
-  name: 'embeddableFactories',
-});
+const EmbeddableFactoriesRegistryProvider = {};
+export function __initNewPlatformContract__(embeddableFActory) {
+  EmbeddableFactoriesRegistryProvider.registerEmbeddable = embeddableFActory.registerEmbeddable;
+}
+
+export EmbeddableFactoriesRegistryProvider;
