@@ -20,7 +20,7 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Type } from '@kbn/config-schema';
 
-import { ConfigService, Env, Config, ConfigPath } from './config';
+import { ConfigService, Env, Config, ConfigPath } from '@kbn/local/src/core/server/config';
 import { ElasticsearchService } from './elasticsearch';
 import { HttpService, HttpServiceSetup } from './http';
 import { LegacyService } from './legacy';
