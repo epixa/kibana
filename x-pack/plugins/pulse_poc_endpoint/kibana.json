@@ -1,0 +1,9 @@
+{
+    "id": "pulse_poc_endpoint",
+    "version": "8.0.0",
+    "kibanaVersion": "kibana",
+    "requiredPlugins": [],
+    "server": true,
+    "ui": false
+  }
+  
